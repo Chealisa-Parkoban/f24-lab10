@@ -32,26 +32,27 @@ class QuizCore {
   public getCurrentQuestion(): QuizQuestion | null {
     // Returns the current quiz question.
     if (this.currentQuestionIndex >= 0 && this.currentQuestionIndex < this.questions.length) {
+      console.log(this.questions[this.currentQuestionIndex]);
       return this.questions[this.currentQuestionIndex];
     }
     return null;
   }
 
-  /**
-   * Move to the next question.
-   */
-  public nextQuestion(): void {      
-    this.currentQuestionIndex++;
-  }
-
-  /**
-   * Checks if there is a next question available in the quiz.
-   *
-   * @returns {boolean} True if there is a next question, false if the quiz has been completed.
-   */
   public hasNextQuestion(): boolean {
-    return this.currentQuestionIndex < this.questions.length - 1;
+    let bool = this.currentQuestionIndex < this.questions.length - 1;
+    console.log("hasNextQuestion", bool);
+    return bool;
   }
+  
+  public nextQuestion(): QuizQuestion | null {
+    if (this.hasNextQuestion()) {
+      this.currentQuestionIndex++;
+      console.log("currentQuestionIndex", this.currentQuestionIndex);
+      return this.getCurrentQuestion();
+    }
+    return null;
+  }
+  
 
   /**
    * Record the user's answer and update the score.
@@ -83,3 +84,4 @@ class QuizCore {
 }
 
 export default QuizCore;
+
